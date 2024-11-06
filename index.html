@@ -1,34 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Congratulations!</title>
+    <title>Simulate XSS Vulnerability</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            background-color: #f0f8ff;
         }
-        .message {
-            text-align: center;
+
+        .container {
+            background-color: #fff;
             padding: 20px;
-            background-color: #ffeb3b;
-            border-radius: 10px;
+            border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            font-size: 2rem;
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
             color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        h2 {
+            color: #333;
+            margin-top: 20px;
+        }
+
+        #output {
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+            min-height: 40px;
+            border-radius: 4px;
         }
     </style>
 </head>
+
 <body>
-    <div class="message">
-        <p>Congratulations!</p>
+    <div class="container">
+        <h1>Congratulations!</h1>
+        <h4>You found this unsecured subdomain. Simulate an XSS Vulnerability by passing a script below:</h4>
+
+        <form id="xssForm">
+            <label for="userInput">Enter your message:</label><br><br>
+            <input type="text" id="userInput" name="userInput"><br><br>
+            <button type="button" onclick="submitForm()">Submit</button>
+        </form>
+
+        <h2>Output:</h2>
+        <div id="output"></div>
     </div>
+
+    <script>
+        function submitForm() {
+            // Get the value entered in the text field
+            var userInput = document.getElementById("userInput").value;
+
+            console.log(userInput)
+
+            // Directly inject the user input into the output section (XSS vulnerability)
+            document.getElementById("output").innerHTML = userInput;
+        }
+    </script>
 </body>
+
 </html>
